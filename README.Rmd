@@ -1,0 +1,78 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# aaply2
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of aaply2 is to accelerate `plyr::aaply(,.drop=F)`
+
+## Installation
+
+You can install the released version of aaply2 from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("aaply2")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("hurrialice/faply")
+```
+## Example
+
+`fast_aaply` can give the same structure as `aaply`.
+
+```{r example}
+library(aaply2)
+library(plyr)
+library(magrittr)
+
+dims <- c(2,10,2,5,1)
+arr <- array(1:prod(dims), dims, lapply(dims, function(d) 1:d))
+fast_aaply(arr, c(2,4,3), cumsum) %>% str
+plyr::aaply(arr, c(2,4,3), cumsum) %>% str
+```
+
+But much faster - 
+
+```{r cars}
+library(microbenchmark)
+
+
+dims <- dims*3
+arr <- array(runif(prod(dims)), dims, lapply(dims, function(d) 1:d))
+
+check_val <- function(values){
+    tol <- 1e-12
+    max(values[[1]] - values[[2]]) < tol
+}
+
+
+mbm <- microbenchmark(
+    "faply"={fast_aaply(arr, c(2,4,3), cumsum)},
+    "aaply"={plyr::aaply(arr, c(2,4,3), cumsum)} ,
+    check = check_val
+)
+
+
+library(ggplot2)
+autoplot(mbm)
+
+```
+
+
