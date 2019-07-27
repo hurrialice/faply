@@ -1,4 +1,4 @@
-
+library(testthat)
 
 # a general array with named dimnames
 dn_arr <- list(
@@ -48,8 +48,10 @@ test_that("sum works", {
     }
 
     eequal_sum(arr, c(1,2))
-    eequal_sum(arr, c(3,4)) # wrong
-    eequal_sum(arr, c(4,2)) # wrong
+    eequal_sum(arr, c(3,4))
+    eequal_sum(arr, c(4,2))
     eequal_sum(arr, c(2,3))
+    eequal_sum(arr, c(2,3,1))
+    eequal_sum(arr, c(2,3,4))
 
 })

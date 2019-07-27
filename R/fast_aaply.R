@@ -24,23 +24,21 @@ fast_aaply <-function(X, MARGIN, FUN){
     res <- res0
 
 
-
-    # reorder dimensionsc
     if (length(FUN(seq(10)))==1) {
-        # this function will drop levels!
-        # e.g. sum function
+        # this function will collapse dimension!
+        # e.g. sum function, i.g. sum(mat)->numeric
 
         dim(res) <- c(dim(res0), 1)
+        # we need to initialize viable dimname at first
         dimnames(res) <- lapply(dim(res), function(i) 1:i)
         dimnames(res)[-length(dim(res))] <- dimnames(res0)
         return(res)
 
     }
     else {
-
+        # if the function is not collapsing, e.g. cumsum(vec)-> vec
         if (all(d[-MARGIN] == 1)){
             dim(res) <- c(1, dim(res0))
-            # we need to initialize viable dimname at first
 
         }
 
