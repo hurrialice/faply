@@ -21,13 +21,7 @@ The goal of aaply2 is to accelerate `plyr::aaply(,.drop=F)`
 
 ## Installation
 
-You can install the released version of aaply2 from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("aaply2")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
